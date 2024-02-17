@@ -40,7 +40,6 @@ class YoutubeTrendScraper:
             # Extract JSON data from the matched script.
             json_object = match.group(1)        
             content = json.loads(json_object)
-            # ITEMS_PATH, it was created for convenience to allocate data infos.
             items = traverse_path(content, ITEMS_PATH)    
             # List to store video metadata.  
             video_meta = []     
@@ -56,11 +55,11 @@ class YoutubeTrendScraper:
                 video_viewer_count = traverse_path(item, VIDEO_VIEWER_PATH)
                 video_publish_relative_date = traverse_path(item, VIDEO_PUBLISH_PATH)
                 video_publish_date = relative_to_absolute_time(video_publish_relative_date)
-
+                
+                # Use video title as description if not available.
                 try:
                     video_description = traverse_path(item, VIDEO_DESCRIPTION_PATH)
                 except KeyError:
-                    # Use video title as description if not available.
                     video_description = video_title     
 
                 # Construct metadata dictionary for the video.

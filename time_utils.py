@@ -87,3 +87,20 @@ if __name__ == "__main__":
     else:
         print("Invalid expression or unit not recognized.")
 
+def time_converter(parsed_time):
+    """
+    Convert video length from "HH:MM:SS" format to numerical representation (minutes). Example: 01:23:30 -> 83.5
+
+    Args:
+        parsed_time (list[int]): A list containing hours, minutes, and seconds.
+
+    Returns:
+        float: The total length of the video in minutes.
+    """
+    if len(parsed_time) == 2:
+        # "00:SS" or "MM:SS"
+        return int(parsed_time[0]) + int(parsed_time[1]) / 60
+    
+    elif len(parsed_time) == 3:
+        # "HH:MM:SS"
+        return timedelta(hours=int(parsed_time[0]), minutes=int(parsed_time[1]), seconds=int(parsed_time[2])).total_seconds() / 60

@@ -3,8 +3,8 @@ import requests
 import json
 import re
 
-from utils import traverse_path
-from utils import ITEMS_PATH, THUMBNAIL_URL_PATH, TITLE_PATH, VIDEO_URL_PATH, VIDEO_DESCRIPTION_PATH, CHANNEL_NAME_PATH, CHANNEL_URL_PATH, VIDEO_LENGTH_PATH, VIDEO_VIEWER_PATH, VIDEO_PUBLISH_PATH
+from path_utils import traverse_path
+from path_utils import ITEMS_PATH, THUMBNAIL_URL_PATH, TITLE_PATH, VIDEO_URL_PATH, VIDEO_DESCRIPTION_PATH, CHANNEL_NAME_PATH, CHANNEL_URL_PATH, VIDEO_LENGTH_PATH, VIDEO_VIEWER_PATH, VIDEO_PUBLISH_PATH
 from time_utils import relative_to_absolute_time
 
 class YoutubeTrendScraper:

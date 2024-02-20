@@ -97,10 +97,12 @@ def time_converter(parsed_time):
     Returns:
         float: The total length of the video in minutes.
     """
-    if len(parsed_time) == 2:
+    parsed_video_length = parsed_time.split(":")
+
+    if len(parsed_video_length) == 2:
         # "00:SS" or "MM:SS"
-        return int(parsed_time[0]) + int(parsed_time[1]) / 60
+        return int(parsed_video_length[0]) * 60 + int(parsed_video_length[1])
     
-    elif len(parsed_time) == 3:
+    elif len(parsed_video_length) == 3:
         # "HH:MM:SS"
-        return timedelta(hours=int(parsed_time[0]), minutes=int(parsed_time[1]), seconds=int(parsed_time[2])).total_seconds() / 60
+        return int(parsed_video_length[0]) * 3600 + int(parsed_video_length[1]) * 60 + int(parsed_video_length[2])

@@ -50,6 +50,13 @@ def filter_videos(video_data: List[Dict[str, Any]], **options: Any) -> List[Dict
             if published_time >= published_before_date:
                 continue
 
+        if 'video_type' in options:
+            video_type = options['video_type'].lower()
+            if 'shorts' in video_type and '/shorts/' not in entry['videoUrl']:
+                continue
+            elif 'video' in video_type and '/shorts/' in entry['videoUrl']:
+                continue
+
         # If video passes all criteria, add it to filtered_videos
         filtered_videos.append(entry)
 

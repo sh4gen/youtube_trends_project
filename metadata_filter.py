@@ -1,4 +1,5 @@
 from typing import Dict, List, Any
+import re
 
 from time_processing import time_converter, relative_to_absolute_time
 
@@ -22,6 +23,9 @@ def filter_videos(video_data: List[Dict[str, Any]], **options: Any) -> List[Dict
         video_title = entry['videoTitle']
         published_time = relative_to_absolute_time(entry['videoPublishRelativeDate'])
 
+        cleaned_str = re.sub(r'[^\d.]', '', entry['videoViewerCount'])
+        view_count = int(cleaned_str.replace('.', ''))
+
         if 'max_length_seconds' in options and length_seconds >= options['max_length_seconds']:
             continue
 
@@ -34,7 +38,7 @@ def filter_videos(video_data: List[Dict[str, Any]], **options: Any) -> List[Dict
         if 'title_contains' in options and options['title_contains'].lower() not in video_title.lower():
             continue
 
-        if 'view_count' in options and int(options['view_count']) > entry['videoViewerCount']:
+        if 'view_count' in options and int(options['view_count']) > view_count:
             continue
         
         if 'channel_name' in options and options['channel_name'] != entry['channelName']:

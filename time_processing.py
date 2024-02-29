@@ -47,7 +47,7 @@ def convert_to_publish_time(amount: int, unit: str) -> timedelta:
     elif unit.lower() == "saat" or unit.lower() == "hour":
         return current_date - timedelta(hours=int(amount))
     elif unit.lower() == "hafta" or unit.lower() == "week":
-        return current_date - timedelta(days=int(amount)*7)
+        return current_date - timedelta(weeks=int(amount))
     else:
         # Use timedelta constructor for other units
         return timedelta(**{TIME_UNIT_MAP[unit]: amount})    
@@ -67,7 +67,7 @@ def relative_to_absolute_time(relative_time: str) -> str:
     if not parsed_time:
         print(relative_time)
         # Raise ValueError if expression is not matched
-        raise "Could not match expression!"     
+        raise ValueError("Could not match expression!")  
     
     amount, unit = parsed_time
 

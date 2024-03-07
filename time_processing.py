@@ -89,7 +89,7 @@ if __name__ == "__main__":
     else:
         print("Invalid expression or unit not recognized.")
 
-def time_converter(parsed_time):
+def time_converter(parsed_time: list[int]) -> float:
     """
     Convert video length from "HH:MM:SS" format to numerical representation (minutes). Example: 01:23:30 -> 83.5
 

@@ -10,8 +10,6 @@ TIME_UNIT_MAP: dict[str, str] = {
     'saat': 'hours',
 }
 
-current_date = datetime.now()
-
 def parse_time_expression(expression: str) -> tuple[int, str]:
     """
     Parses a time expression to extract the amount and unit.
@@ -30,27 +28,30 @@ def parse_time_expression(expression: str) -> tuple[int, str]:
         return amount, unit     
     return None
 
-def convert_to_publish_time(amount: int, unit: str) -> timedelta:
+def convert_to_publish_time(amount: int, unit: str) -> tuple:
     """
     Converts a relative time expression to an absolute publish time.
 
     Args:
         amount (int): The amount of time.
         unit (str): The unit of time.
+        current_date (datetime, optional): The current date and time. Defaults to None, in which case it uses datetime.now().
 
     Returns:
-        timedelta: The timedelta representing the absolute publish time.
+        tuple: The current time and an optional timedelta representing the absolute publish time.
     """
     # Convert relative time to absolute time
+    current_date = datetime.now()
+    
     if unit.lower() == "gün" or unit.lower() == "day":      
-        return current_date - timedelta(days=int(amount))
+        return current_date - timedelta(days=int(amount)), current_date
     elif unit.lower() == "saat" or unit.lower() == "hour":
-        return current_date - timedelta(hours=int(amount))
+        return current_date - timedelta(hours=int(amount)), current_date
     elif unit.lower() == "hafta" or unit.lower() == "week":
-        return current_date - timedelta(weeks=int(amount))
+        return current_date - timedelta(weeks=int(amount)), current_date
     else:
         # Use timedelta constructor for other units
-        return timedelta(**{TIME_UNIT_MAP[unit]: amount})    
+        return timedelta(**{TIME_UNIT_MAP[unit]: amount}), current_date  
     
 def relative_to_absolute_time(relative_time: str) -> str:
     """
@@ -70,8 +71,9 @@ def relative_to_absolute_time(relative_time: str) -> str:
         raise ValueError("Could not match expression!")  
     
     amount, unit = parsed_time
-
-    return str(convert_to_publish_time(amount, unit))
+    converted_time, current_time = convert_to_publish_time(amount, unit)
+    
+    return str(converted_time), current_time
 
 # Example usage
 if __name__ == "__main__":      

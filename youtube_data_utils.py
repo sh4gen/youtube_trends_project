@@ -54,7 +54,7 @@ class YoutubeTrendScraper:
                 video_length = traverse_path(item, VIDEO_LENGTH_PATH)
                 video_viewer_count = traverse_path(item, VIDEO_VIEWER_PATH)
                 video_publish_relative_date = traverse_path(item, VIDEO_PUBLISH_PATH)
-                video_publish_date = relative_to_absolute_time(video_publish_relative_date)
+                video_publish_date, current_time = relative_to_absolute_time(video_publish_relative_date)
                 
                 # Use video title as description if not available.
                 try:

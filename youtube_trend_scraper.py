@@ -20,8 +20,8 @@ filtered_videos = filter_videos(video_data,
                                 #title_contains="Galatasaray",
                                 #view_count=100000,
                                 #channel_name="",
-                                #published_after="7 gün önce",
-                                #published_before="1 gün önce",
+                                #published_after="2024-03-07",
+                                #published_before="2024-03-08",
                                 #video_type="video" 
                                 )
 

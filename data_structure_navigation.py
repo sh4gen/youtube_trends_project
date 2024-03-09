@@ -1,7 +1,7 @@
 from typing import Union, Dict, List
 
 # Paths for datas.
-ITEMS_PATH = ["contents","twoColumnBrowseResultsRenderer","tabs",0,"tabRenderer","content","sectionListRenderer","contents",0,"itemSectionRenderer","contents",0,"shelfRenderer","content","expandedShelfContentsRenderer","items"]
+ITEMS_PATH = ["contents", "twoColumnBrowseResultsRenderer", "tabs", 0, "tabRenderer", "content", "sectionListRenderer", "contents", 0, "itemSectionRenderer", "contents", 0, "shelfRenderer", "content", "expandedShelfContentsRenderer", "items"]
 THUMBNAIL_URL_PATH = ["videoRenderer", "thumbnail", "thumbnails", 2, "url"]
 TITLE_PATH = ["videoRenderer", "title", "runs", 0, "text"]
 VIDEO_URL_PATH = ["videoRenderer", "navigationEndpoint", "commandMetadata", "webCommandMetadata", "url"]

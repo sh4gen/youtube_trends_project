@@ -1,4 +1,6 @@
 from typing import Dict, List, Any
+from datetime import datetime, timedelta
+
 import re
 
 from time_processing import time_converter, relative_to_absolute_time
@@ -20,8 +22,7 @@ def filter_videos(video_data: List[Dict[str, Any]], **options: Any) -> List[Dict
     for entry in video_data:
 
         length_seconds = time_converter(entry['videoLength'])
-        video_title = entry['videoTitle']
-        published_time = relative_to_absolute_time(entry['videoPublishRelativeDate'])
+        video_title = entry['videoTitle']  
 
         cleaned_str = re.sub(r'[^\d.]', '', entry['videoViewerCount'])
         view_count = int(cleaned_str.replace('.', ''))
@@ -45,13 +46,11 @@ def filter_videos(video_data: List[Dict[str, Any]], **options: Any) -> List[Dict
             continue
 
         if 'published_after' in options:
-            published_after_date = relative_to_absolute_time(options['published_after'])
-            if published_time <= published_after_date:
+            if entry['videoPublishDate'] <= options['published_after']:
                 continue
 
         if 'published_before' in options:
-            published_before_date = relative_to_absolute_time(options['published_before'])
-            if published_time >= published_before_date:
+            if entry['videoPublishDate'] >= options['published_before']:
                 continue
 
         if 'video_type' in options:

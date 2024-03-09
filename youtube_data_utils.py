@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import json
 import re
+from datetime import datetime
 
 from data_structure_navigation import traverse_path
 from data_structure_navigation import ITEMS_PATH, THUMBNAIL_URL_PATH, TITLE_PATH, VIDEO_URL_PATH, VIDEO_DESCRIPTION_PATH, CHANNEL_NAME_PATH, CHANNEL_URL_PATH, VIDEO_LENGTH_PATH, VIDEO_VIEWER_PATH, VIDEO_PUBLISH_PATH
@@ -38,7 +39,7 @@ class YoutubeTrendScraper:
 
         if match:
             # Extract JSON data from the matched script.
-            json_object = match.group(1)        
+            json_object = match.group(1)       
             content = json.loads(json_object)
             items = traverse_path(content, ITEMS_PATH)    
             # List to store video metadata.  
@@ -54,7 +55,7 @@ class YoutubeTrendScraper:
                 video_length = traverse_path(item, VIDEO_LENGTH_PATH)
                 video_viewer_count = traverse_path(item, VIDEO_VIEWER_PATH)
                 video_publish_relative_date = traverse_path(item, VIDEO_PUBLISH_PATH)
-                video_publish_date, current_time = relative_to_absolute_time(video_publish_relative_date)
+                video_publish_date = relative_to_absolute_time(video_publish_relative_date, datetime.now())
                 
                 # Use video title as description if not available.
                 try:
@@ -67,6 +68,7 @@ class YoutubeTrendScraper:
                     "videoTitle": video_title,
                     "videoUrl": video_url,
                     "videoThumbnailUrl": video_thumbnail_url,
+                    "videoDescription": video_description,
                     "videoLength": video_length,
                     "videoViewerCount": video_viewer_count,
                     "videoPublishDate": video_publish_date,

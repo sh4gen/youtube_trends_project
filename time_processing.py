@@ -28,7 +28,7 @@ def parse_time_expression(expression: str) -> tuple[int, str]:
         return amount, unit     
     return None
 
-def convert_to_publish_time(amount: int, unit: str) -> tuple:
+def convert_to_publish_time(amount: int, unit: str, current_date = None) -> tuple:
     """
     Converts a relative time expression to an absolute publish time.
 
@@ -41,19 +41,18 @@ def convert_to_publish_time(amount: int, unit: str) -> tuple:
         tuple: The current time and an optional timedelta representing the absolute publish time.
     """
     # Convert relative time to absolute time
-    current_date = datetime.now()
     
     if unit.lower() == "gün" or unit.lower() == "day":      
-        return current_date - timedelta(days=int(amount)), current_date
+        return current_date - timedelta(days=int(amount))
     elif unit.lower() == "saat" or unit.lower() == "hour":
-        return current_date - timedelta(hours=int(amount)), current_date
+        return current_date - timedelta(hours=int(amount))
     elif unit.lower() == "hafta" or unit.lower() == "week":
-        return current_date - timedelta(weeks=int(amount)), current_date
+        return current_date - timedelta(weeks=int(amount))
     else:
         # Use timedelta constructor for other units
-        return timedelta(**{TIME_UNIT_MAP[unit]: amount}), current_date  
+        return timedelta(**{TIME_UNIT_MAP[unit]: amount}) 
     
-def relative_to_absolute_time(relative_time: str) -> str:
+def relative_to_absolute_time(relative_time: str, current_date) -> str:
     """
     Converts a relative time expression to an absolute publish time.
 
@@ -71,9 +70,8 @@ def relative_to_absolute_time(relative_time: str) -> str:
         raise ValueError("Could not match expression!")  
     
     amount, unit = parsed_time
-    converted_time, current_time = convert_to_publish_time(amount, unit)
     
-    return str(converted_time), current_time
+    return str(convert_to_publish_time(amount, unit, current_date))
 
 # Example usage
 if __name__ == "__main__":      

@@ -9,8 +9,8 @@ Requirements
 - Python 3.x
 
 Installation
-git clone https://github.com/sh4gen/youtube_trends_project.git
-cd youtube_trends_project
+- git clone https://github.com/sh4gen/youtube_trends_project.git
+- cd youtube_trends_project
 
 Usage
 - Specify the regions you want to scrape (ex. for Turkey use: TR or for Mexico use: MX in link.)

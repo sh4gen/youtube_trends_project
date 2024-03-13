@@ -4,9 +4,9 @@ import json
 import re
 from datetime import datetime
 
-from data_structure_navigation import traverse_path
-from data_structure_navigation import ITEMS_PATH, THUMBNAIL_URL_PATH, TITLE_PATH, VIDEO_URL_PATH, VIDEO_DESCRIPTION_PATH, CHANNEL_NAME_PATH, CHANNEL_URL_PATH, VIDEO_LENGTH_PATH, VIDEO_VIEWER_PATH, VIDEO_PUBLISH_PATH
-from time_processing import relative_to_absolute_time
+from src.data_structure_navigation import traverse_path
+from src.data_structure_navigation import ITEMS_PATH, THUMBNAIL_URL_PATH, TITLE_PATH, VIDEO_URL_PATH, VIDEO_DESCRIPTION_PATH, CHANNEL_NAME_PATH, CHANNEL_URL_PATH, VIDEO_LENGTH_PATH, VIDEO_VIEWER_PATH, VIDEO_PUBLISH_PATH
+from src.time_processing import relative_to_absolute_time
 
 class YoutubeTrendScraper:
     """

@@ -1,10 +1,7 @@
 import unittest
 from datetime import datetime, timedelta
-import sys
 
-sys.path.append('../src')
-
-from time_processing import parse_time_expression, convert_to_publish_time, relative_to_absolute_time, time_converter
+from src.time_processing import parse_time_expression, convert_to_publish_time, relative_to_absolute_time, time_converter
 
 class TestTimeConverter(unittest.TestCase):
 

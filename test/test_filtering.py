@@ -1,9 +1,6 @@
 import unittest
-import sys
 
-sys.path.append('../src')
-
-from metadata_filter import filter_videos
+from src.metadata_filter import filter_videos
 
 class TestFilterVideos(unittest.TestCase):
 

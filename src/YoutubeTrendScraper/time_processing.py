@@ -67,9 +67,8 @@ def relative_to_absolute_time(relative_time: str, current_date) -> str:
     parsed_time = parse_time_expression(relative_time)
 
     if not parsed_time:
-        print(relative_time)
         # Raise ValueError if expression is not matched
-        raise ValueError("Could not match expression!")  
+        raise ValueError(f"Could not match expression : '{relative_time}'!")  
     
     amount, unit = parsed_time
     

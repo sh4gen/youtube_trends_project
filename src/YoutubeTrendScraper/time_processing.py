@@ -1,3 +1,4 @@
+from typing import Optional, Tuple
 import re
 from datetime import datetime, timedelta
 
@@ -10,7 +11,7 @@ TIME_UNIT_MAP: dict[str, str] = {
     'saat': 'hours',
 }
 
-def parse_time_expression(expression: str) -> tuple[int, str]:
+def parse_time_expression(expression: str) -> Optional[Tuple[int, str]]:
     """
     Parses a time expression to extract the amount and unit.
 
@@ -28,7 +29,7 @@ def parse_time_expression(expression: str) -> tuple[int, str]:
         return amount, unit     
     return None
 
-def convert_to_publish_time(amount: int, unit: str, current_date = None) -> tuple:
+def convert_to_publish_time(amount: int, unit: str, current_date : datetime) -> str:
     """
     Converts a relative time expression to an absolute publish time.
 
@@ -38,19 +39,20 @@ def convert_to_publish_time(amount: int, unit: str, current_date = None) -> tupl
         current_date (datetime, optional): The current date and time. Defaults to None, in which case it uses datetime.now().
 
     Returns:
-        tuple: The current time and an optional timedelta representing the absolute publish time.
+        tuple: timedelta representing the absolute publish time.
     """
+
     # Convert relative time to absolute time
     
     if unit.lower() == "gün" or unit.lower() == "day":      
-        return current_date - timedelta(days=int(amount))
+        return str(current_date - timedelta(days=int(amount)))
     elif unit.lower() == "saat" or unit.lower() == "hour":
-        return current_date - timedelta(hours=int(amount))
+        return str(current_date - timedelta(hours=int(amount)))
     elif unit.lower() == "hafta" or unit.lower() == "week":
-        return current_date - timedelta(weeks=int(amount))
+        return str(current_date - timedelta(weeks=int(amount)))
     else:
         # Use timedelta constructor for other units
-        return timedelta(**{TIME_UNIT_MAP[unit]: amount}) 
+        return str(timedelta(**{TIME_UNIT_MAP[unit]: amount}))
     
 def relative_to_absolute_time(relative_time: str, current_date) -> str:
     """
@@ -71,23 +73,10 @@ def relative_to_absolute_time(relative_time: str, current_date) -> str:
     
     amount, unit = parsed_time
     
-    return str(convert_to_publish_time(amount, unit, current_date))
+    return convert_to_publish_time(amount, unit, current_date)
 
-# Example usage
-if __name__ == "__main__":      
-    expression = "23 saat once"
-    amount, unit = parse_time_expression(expression)
-    if amount is not None and unit in TIME_UNIT_MAP:
-        time_delta = relative_to_absolute_time(amount, unit)
-        # Format the time string
-        formated_time = time_delta.strftime("%d/%m/%Y, %H:%M:%S")       
-        print(time_delta)
-        print(f"Time delta for '{expression}': {formated_time}")
 
-    else:
-        print("Invalid expression or unit not recognized.")
-
-def time_converter(parsed_time: list[int]) -> float:
+def time_converter(parsed_time: str) -> int:
     """
     Convert video length from "HH:MM:SS" format to numerical representation (minutes). Example: 01:23:30 -> 83.5
 
@@ -106,3 +95,6 @@ def time_converter(parsed_time: list[int]) -> float:
     elif len(parsed_video_length) == 3:
         # "HH:MM:SS"
         return int(parsed_video_length[0]) * 3600 + int(parsed_video_length[1]) * 60 + int(parsed_video_length[2])
+    
+    else:
+        raise ValueError("Invalid time format!")

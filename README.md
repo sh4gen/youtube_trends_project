@@ -11,12 +11,13 @@ Requirements
 Installation
 - git clone https://github.com/sh4gen/youtube_trends_project.git
 - cd youtube_trends_project
+- pip install -e .
 
 Usage
 - Specify the regions you want to scrape (ex. for Turkey use: TR or for Mexico use: MX in link.)
 - URL: https://www.youtube.com/feed/trending?gl=REGION (After the 'gl' part at the end of the link, you must add the code of the relevant country.)
 - You must save the script by pasting the link you have personalized into the self.url in the "youtube_data_utils.py".
-- You must run the script "python youtube_trend_scraper.py" 
+- After the installation you can run the script using "python -m YoutubeTrendScraper.main" 
 - (Optional) You can use filters in "youtube_trend_scraper.py" the example is shown in the code.
 
 Output

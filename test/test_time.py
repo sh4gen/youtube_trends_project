@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime, timedelta
 
-from src.time_processing import parse_time_expression, convert_to_publish_time, relative_to_absolute_time, time_converter
+from src.YoutubeTrendScraper.time_processing import parse_time_expression, convert_to_publish_time, relative_to_absolute_time, time_converter
 
 class TestTimeConverter(unittest.TestCase):
 
@@ -18,7 +18,7 @@ class TestTimeConverter(unittest.TestCase):
         example_amount = 3
         example_unit = "gün"
         publish_time = convert_to_publish_time(example_amount, example_unit, current_time)
-        expected_publish_time = current_time - timedelta(days=3)
+        expected_publish_time = str(current_time - timedelta(days=3))
 
         self.assertEqual(publish_time, expected_publish_time, current_time)
     

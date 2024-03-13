@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 import re
 
-from src.time_processing import time_converter
+from src.YoutubeTrendScraper.time_processing import time_converter
 
 def filter_videos(video_data: List[Dict[str, Any]], **options: Any) -> List[Dict[str, Any]]:
     """

@@ -1,6 +1,6 @@
 import unittest
 
-from src.metadata_filter import filter_videos
+from src.YoutubeTrendScraper.metadata_filter import filter_videos
 
 class TestFilterVideos(unittest.TestCase):
 

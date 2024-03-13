@@ -1,7 +1,7 @@
 import json
 
-from src.youtube_data_utils import YoutubeTrendScraper
-from src.metadata_filter import filter_videos
+from src.YoutubeTrendScraper.youtube_data_utils import YoutubeTrendScraper
+from src.YoutubeTrendScraper.metadata_filter import filter_videos
 
 scraper = YoutubeTrendScraper()
 

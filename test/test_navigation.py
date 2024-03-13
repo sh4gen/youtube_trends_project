@@ -1,7 +1,7 @@
 import unittest
 
-from src.data_structure_navigation import traverse_path
-from src.data_structure_navigation import ITEMS_PATH, THUMBNAIL_URL_PATH, TITLE_PATH, VIDEO_URL_PATH, VIDEO_DESCRIPTION_PATH, CHANNEL_NAME_PATH, CHANNEL_URL_PATH, VIDEO_LENGTH_PATH, VIDEO_VIEWER_PATH, VIDEO_PUBLISH_PATH
+from src.YoutubeTrendScraper.data_structure_navigation import traverse_path
+from src.YoutubeTrendScraper.data_structure_navigation import ITEMS_PATH, THUMBNAIL_URL_PATH, TITLE_PATH, VIDEO_URL_PATH, VIDEO_DESCRIPTION_PATH, CHANNEL_NAME_PATH, CHANNEL_URL_PATH, VIDEO_LENGTH_PATH, VIDEO_VIEWER_PATH, VIDEO_PUBLISH_PATH
 
 class TestDataStructureNavigation(unittest.TestCase):
 
@@ -177,11 +177,14 @@ class TestDataStructureNavigation(unittest.TestCase):
         }
         
         self.items = traverse_path(self.test_data, ITEMS_PATH)
+        if not isinstance(self.items, list):
+            raise ValueError(f"Object can't be traversed with ITEMS_PATH : {ITEMS_PATH}!")
 
     def test_traverse_path_thumbnail_url(self):
         # Test traversing the thumbnail URL path
         result_urls = []
-        for item in self.items:
+
+        for item in self.items: # type: ignore
             result = traverse_path(item, THUMBNAIL_URL_PATH)
             result_urls.append(result)
 
@@ -195,7 +198,7 @@ class TestDataStructureNavigation(unittest.TestCase):
     def test_traverse_path_title(self):
         # Test traversing the video title path
         result_titles = []
-        for item in self.items:
+        for item in self.items: # type: ignore
             result = traverse_path(item, TITLE_PATH)
             result_titles.append(result)
 
@@ -209,7 +212,7 @@ class TestDataStructureNavigation(unittest.TestCase):
     def test_traverse_path_video_url(self):
         # Test traversing the video URL path
         result_video_urls = []
-        for item in self.items:
+        for item in self.items: # type: ignore
             result = traverse_path(item, VIDEO_URL_PATH)
             result_video_urls.append(result)
         
@@ -223,7 +226,7 @@ class TestDataStructureNavigation(unittest.TestCase):
     def test_traverse_path_video_description(self):
         # Test traversing the video description path
         result_video_description = []
-        for item in self.items:
+        for item in self.items: # type: ignore
             try:
                 video_description = traverse_path(item, VIDEO_DESCRIPTION_PATH)
             except KeyError:
@@ -241,7 +244,7 @@ class TestDataStructureNavigation(unittest.TestCase):
     def test_traverse_path_channel_name(self):
         # Test traversing the channel name path
         result_channel_names = []
-        for item in self.items:
+        for item in self.items: # type: ignore
             result = traverse_path(item, CHANNEL_NAME_PATH)
             result_channel_names.append(result)
         
@@ -255,7 +258,7 @@ class TestDataStructureNavigation(unittest.TestCase):
     def test_traverse_path_channel_url(self):
         # Test traversing the channel URL path
         result_channel_urls = []
-        for item in self.items:
+        for item in self.items: # type: ignore
             result = traverse_path(item, CHANNEL_URL_PATH)
             result_channel_urls.append(result)
         
@@ -269,7 +272,7 @@ class TestDataStructureNavigation(unittest.TestCase):
     def test_traverse_path_video_length(self):
         # Test traversing the video length path
         result_video_lengths = []
-        for item in self.items:
+        for item in self.items: # type: ignore
             result = traverse_path(item, VIDEO_LENGTH_PATH)
             result_video_lengths.append(result)
         
@@ -283,7 +286,7 @@ class TestDataStructureNavigation(unittest.TestCase):
     def test_traverse_path_video_viewer_count(self):
         # Test traversing the video viewer count path
         result_video_viewer_counts = []
-        for item in self.items:
+        for item in self.items: # type: ignore
             result = traverse_path(item, VIDEO_VIEWER_PATH)
             result_video_viewer_counts.append(result)
         
@@ -297,7 +300,7 @@ class TestDataStructureNavigation(unittest.TestCase):
     def test_traverse_path_video_publish_time(self):
         # Test traversing the video publish time path
         result_videos_publish_times = []
-        for item in self.items:
+        for item in self.items: # type: ignore
             result = traverse_path(item, VIDEO_PUBLISH_PATH)
             result_videos_publish_times.append(result)
         

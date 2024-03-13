@@ -1,12 +1,15 @@
+from typing import List, Dict, Any
+from src.YoutubeTrendScraper.data_structure_navigation import Path
+
 from bs4 import BeautifulSoup
 import requests
 import json
 import re
 from datetime import datetime
 
-from src.data_structure_navigation import traverse_path
-from src.data_structure_navigation import ITEMS_PATH, THUMBNAIL_URL_PATH, TITLE_PATH, VIDEO_URL_PATH, VIDEO_DESCRIPTION_PATH, CHANNEL_NAME_PATH, CHANNEL_URL_PATH, VIDEO_LENGTH_PATH, VIDEO_VIEWER_PATH, VIDEO_PUBLISH_PATH
-from src.time_processing import relative_to_absolute_time
+from src.YoutubeTrendScraper.data_structure_navigation import traverse_path
+from src.YoutubeTrendScraper.data_structure_navigation import ITEMS_PATH, THUMBNAIL_URL_PATH, TITLE_PATH, VIDEO_URL_PATH, VIDEO_DESCRIPTION_PATH, CHANNEL_NAME_PATH, CHANNEL_URL_PATH, VIDEO_LENGTH_PATH, VIDEO_VIEWER_PATH, VIDEO_PUBLISH_PATH
+from src.YoutubeTrendScraper.time_processing import relative_to_absolute_time
 
 class YoutubeTrendScraper:
     """
@@ -19,7 +22,7 @@ class YoutubeTrendScraper:
         self.url = "https://www.youtube.com/feed/trending"
 
     # Method to fetch data from the YouTube trending page.
-    def fetch(self) -> list[dict[str, any]]:   
+    def fetch(self) -> List[Dict[str, Any]]:   
         """Fetching technical and general information about videos from YouTube, such as titles, thumbnails, URLs, etc. 
         This data is initially transformed into JSON format from a string, then necessary information is scraped using 
         regex patterns, along with the traverse path method for convenience. Finally, this information is saved to another 
@@ -41,7 +44,11 @@ class YoutubeTrendScraper:
             # Extract JSON data from the matched script.
             json_object = match.group(1)       
             content = json.loads(json_object)
-            items = traverse_path(content, ITEMS_PATH)    
+            items = traverse_path(content, ITEMS_PATH)  
+
+            if not isinstance(items, list):
+                raise ValueError(f"Object can't be traversed with ITEMS_PATH : {ITEMS_PATH}!")
+
             # List to store video metadata.  
             video_meta = []     
 
@@ -54,7 +61,7 @@ class YoutubeTrendScraper:
                 channel_url = traverse_path(item, CHANNEL_URL_PATH)
                 video_length = traverse_path(item, VIDEO_LENGTH_PATH)
                 video_viewer_count = traverse_path(item, VIDEO_VIEWER_PATH)
-                video_publish_relative_date = traverse_path(item, VIDEO_PUBLISH_PATH)
+                video_publish_relative_date = str(traverse_path(item, VIDEO_PUBLISH_PATH)) # Parsing is only for readability.
                 video_publish_date = relative_to_absolute_time(video_publish_relative_date, datetime.now())
                 
                 # Use video title as description if not available.
